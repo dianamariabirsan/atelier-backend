@@ -2,12 +2,14 @@ package licenta.service;
 
 import licenta.model.Client;
 import licenta.repository.ClientRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class ClientServiceImpl implements ClientService {
+    @Autowired
     private ClientRepository repository;
 
     @Override
