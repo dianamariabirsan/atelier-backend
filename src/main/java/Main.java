@@ -9,7 +9,7 @@ public class Main {
         System.out.println(client);
         System.out.println("Product X");
         Product product = new Product(1l, "puzzle", 10);
-        Status myChoice = new Status();
-        System.out.println(myChoice);
+        /*Status myChoice = new Status();
+        System.out.println(myChoice);*/
     }
 }
