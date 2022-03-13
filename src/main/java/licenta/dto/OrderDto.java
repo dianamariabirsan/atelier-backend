@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderDto {
+public class OrderDto extends BaseDto {
     private List<Product> products;
     private Client client;
     private Status status;
