@@ -1,6 +1,5 @@
 import licenta.model.Client;
 import licenta.model.Product;
-import licenta.model.Status;
 
 public class Main {
     public static void main(String[] args) {
@@ -9,7 +8,7 @@ public class Main {
         System.out.println(client);
         System.out.println("Product X");
         Product product = new Product(1l, "puzzle", 10);
-        /*Status myChoice = new Status();
-        System.out.println(myChoice);*/
+
+        System.out.println(product);
     }
 }

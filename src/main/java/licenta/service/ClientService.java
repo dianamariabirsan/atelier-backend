@@ -9,6 +9,8 @@ public interface ClientService {
 
     List<Client> getClients();
 
+    Client getClientById(long id);
+
     Client update(Client client);
 
     void delete(Long clientId);

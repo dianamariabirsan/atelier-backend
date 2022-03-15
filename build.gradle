@@ -40,6 +40,36 @@ dependencies {
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+
+    // web
+    implementation group: 'org.springframework', name: 'spring-web', version: '5.3.15'
+
+    /*
+    //lombok
+    //compile group: 'org.projectlombok', name: 'lombok', version: "$lombokVersion"
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    compile group: 'org.springframework', name: 'spring-context', version: "$springVersion"
+
+    //jdbctemplate
+    compile group: 'org.springframework', name: 'spring-jdbc', version: "$springVersion"
+//        compile group: 'org.postgresql', name: 'postgresql', version: "$postgresqlVersion"
+    compile group: 'org.apache.commons', name: 'commons-dbcp2', version: "$dbcpVersion"
+
+    //logging
+    compile group: 'org.slf4j', name: 'slf4j-api', version: "$slf4jVersion"
+    testCompile group: 'org.slf4j', name: 'slf4j-simple', version: "$slf4jVersion"
+
+    compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: "$log4jVersion"
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: "$log4jVersion"
+    compile group: 'org.apache.logging.log4j', name: 'log4j-1.2-api', version: "$log4jVersion"
+    */
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
 }
 
 test {

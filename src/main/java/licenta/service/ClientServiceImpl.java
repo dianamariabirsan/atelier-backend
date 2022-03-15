@@ -23,6 +23,11 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
+    public Client getClientById(long id) {
+        return repository.findClientById(id);
+    }
+
+    @Override
     public Client update(Client client) {
         return repository.save(client);
     }
