@@ -1,5 +1,6 @@
 package com.ubb.licenta.service;
 
+import com.ubb.licenta.model.Client;
 import com.ubb.licenta.repository.ProductRepository;
 import com.ubb.licenta.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void delete(Long productId) {
         repository.deleteById(productId);
+    }
+
+    @Override
+    public Product getProductById(long id) {
+        return repository.findProductById(id);
     }
 }
 

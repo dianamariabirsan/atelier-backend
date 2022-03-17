@@ -31,4 +31,9 @@ public class OrderServiceImpl implements OrderService {
     public void delete(Long orderId) {
         repository.deleteById(orderId);
     }
+
+    @Override
+    public Order getOrderById(long id) {
+        return repository.findOrderById(id);
+    }
 }
