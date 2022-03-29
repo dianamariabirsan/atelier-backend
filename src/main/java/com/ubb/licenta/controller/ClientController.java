@@ -26,7 +26,7 @@ public class ClientController {
     private BaseConverter<Client, ClientDto> converter;
 
     @GetMapping("/{clientId}")
-    public ResponseEntity<ClientDto> getClientById(@PathVariable("clientId") Integer clientId) {
+    public ResponseEntity<ClientDto> getClientById(@PathVariable("clientId") Long clientId) {
         //localhost:8080/client/1
         Client client = service.getClientById(clientId);
         ClientDto clientDto = converter.convertModelToDto(client);
@@ -72,5 +72,13 @@ public class ClientController {
         }
         log.info("Saved" + saved);
         return new ResponseEntity<>(clientDto, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{clientId}")
+    public ResponseEntity<?> deleteClient(@PathVariable("clientId") Long clientId) {
+        //localhost:8080/client/1
+        service.delete(clientId);
+        log.info("Returning client with id: " + clientId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

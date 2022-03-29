@@ -12,7 +12,8 @@ public class ClientConverter extends BaseConverter<Client, ClientDto> {
     private static final Logger log = LoggerFactory.getLogger(ClientConverter.class);
     @Override
     public Client convertDtoToModel(ClientDto dto) {
-        throw new RuntimeException("Not yet implemented!");
+        Client client = new Client(dto.getId(), dto.getName(), dto.getEmail(), dto.getPhoneNumber());
+        return client;
     }
 
     @Override

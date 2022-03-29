@@ -73,4 +73,12 @@ public class OrderController {
         log.info("Saved" + saved);
         return new ResponseEntity<>(orderDto, HttpStatus.OK);
     }
+
+    @DeleteMapping("/{orderId}")
+    public ResponseEntity<?> deleteOrder(@PathVariable("orderId") Long orderId) {
+        //localhost:8080/order/1
+        service.delete(orderId);
+        log.info("Returning order with id: " + orderId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

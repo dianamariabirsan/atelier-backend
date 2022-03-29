@@ -3,9 +3,11 @@ package com.ubb.licenta.model;
 import lombok.*;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
+@Table(name="products")
 @Getter
 @Setter
 @ToString

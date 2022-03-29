@@ -33,7 +33,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public void delete(Long clientId) {
+    public void delete(long clientId) {
         repository.deleteById(clientId);
     }
 }

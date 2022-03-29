@@ -73,4 +73,12 @@ public class ProductController {
         log.info("Saved" + saved);
         return new ResponseEntity<>(productDto, HttpStatus.OK);
     }
+
+    @DeleteMapping("/{productId}")
+    public ResponseEntity<?> deleteProduct(@PathVariable("productId") Long productId) {
+        //localhost:8080/product/1
+        service.delete(productId);
+        log.info("Returning product with id: " + productId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

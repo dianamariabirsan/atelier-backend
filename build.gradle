@@ -13,9 +13,6 @@ dependencies {
     implementation 'org.testng:testng:7.1.0'
     implementation 'org.projectlombok:lombok:1.18.20'
 
-    implementation group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
-    implementation group: 'org.springframework', name: 'spring-context', version: '5.0.3.RELEASE'
-
     //jdbctemplate
 //        implementation group: 'org.springframework', name: 'spring-jdbc', version: '5.0.3.RELEASE'
 //        implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.1'
@@ -24,11 +21,6 @@ dependencies {
     //logging
     implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
 //    testimplementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25'
-
-    //jpa
-    implementation group: 'org.springframework', name: 'spring-context-support', version: '5.0.3.RELEASE'
-    implementation group: 'org.springframework', name: 'spring-orm', version: '5.0.3.RELEASE'
-    implementation group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.0.3.RELEASE'
 
     implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.2.6.Final'
 
@@ -43,38 +35,22 @@ dependencies {
 
     // web
     implementation group: 'org.springframework', name: 'spring-web', version: '5.3.15'
-// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.6.3'
+    implementation group: 'org.springframework', name: 'spring-tx', version: '5.3.16'
+
+    implementation group: 'org.springframework', name: 'spring-context', version: '5.0.3.RELEASE'
+//    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.6.3'
+//    implementation group: 'org.springframework.security', name: 'spring-security-web', version: '5.5.2'
+
+    //jpa
+    implementation group: 'org.springframework', name: 'spring-context-support', version: '5.0.3.RELEASE'
+    implementation group: 'org.springframework', name: 'spring-orm', version: '5.0.3.RELEASE'
+    implementation group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.0.3.RELEASE'
 
     //swagger
     implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.0.2'
     implementation group: 'io.springfox', name: 'springfox-swagger2', version: '3.0.0'
 
-
-    /*
-    //lombok
-    //compile group: 'org.projectlombok', name: 'lombok', version: "$lombokVersion"
-    compileOnly "org.projectlombok:lombok:${lombokVersion}"
-    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
-
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-
-    compile group: 'org.springframework', name: 'spring-context', version: "$springVersion"
-
-    //jdbctemplate
-    compile group: 'org.springframework', name: 'spring-jdbc', version: "$springVersion"
-//        compile group: 'org.postgresql', name: 'postgresql', version: "$postgresqlVersion"
-    compile group: 'org.apache.commons', name: 'commons-dbcp2', version: "$dbcpVersion"
-
-    //logging
-    compile group: 'org.slf4j', name: 'slf4j-api', version: "$slf4jVersion"
-    testCompile group: 'org.slf4j', name: 'slf4j-simple', version: "$slf4jVersion"
-
-    compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: "$log4jVersion"
-    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: "$log4jVersion"
-    compile group: 'org.apache.logging.log4j', name: 'log4j-1.2-api', version: "$log4jVersion"
-    */
-    implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 }
