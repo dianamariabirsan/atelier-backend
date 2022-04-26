@@ -81,4 +81,41 @@ public class ProductController {
         log.info("Returning product with id: " + productId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/{ProductByString}")
+    public ResponseEntity<ProductDto> filterProductByString(@PathVariable("ProductByString") String productByString) {
+        Product product = (Product) service.filterProductByString(productByString);
+        ProductDto productDto = converter.convertModelToDto(product);
+        if (productDto == null) {
+            log.info("Unable to find any product with the given type name: " + productByString);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        log.info("Returning product with name type: " + productByString);
+        return new ResponseEntity<>(productDto, HttpStatus.OK);
+    }
+
+    @GetMapping("/{ProductByPrice}")
+    public ResponseEntity<ProductDto> filterProductByPrice(@PathVariable("ProductByPrice") int productByPrice) {
+        Product product = (Product) service.filterProductsByPrice(productByPrice);
+        ProductDto productDto = converter.convertModelToDto(product);
+        if (productDto == null) {
+            log.info("Unable to find any product with the given price: " + productByPrice);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        log.info("Returning product with the given price: " + productByPrice);
+        return new ResponseEntity<>(productDto, HttpStatus.OK);
+    }
+
+    @GetMapping("/{ProductByPriceSorted}")
+    public ResponseEntity<ProductDto> filterProductByPriceSorted(@PathVariable("ProductByPriceSorted") int productByPriceSorted) {
+        Product product = (Product) service.filterProductsByPriceSorted(productByPriceSorted);
+        ProductDto productDto = converter.convertModelToDto(product);
+        if (productDto == null) {
+            log.info("Unable to find any product: " + productByPriceSorted);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        log.info("Returning product: " + productByPriceSorted);
+        return new ResponseEntity<>(productDto, HttpStatus.OK);
+    }
+    
 }

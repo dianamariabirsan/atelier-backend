@@ -14,11 +14,13 @@ import java.io.Serializable;
 public class Product extends BaseEntity<Long> implements Serializable {
     private String type;
     private int price;
+    private String image;
 
-    public Product(Long aLong, String type, int price) {
+    public Product(Long aLong, String type, int price, String image) {
         super(aLong);
         this.type = type;
         this.price = price;
+        this.image = image;
     }
 
     public Product() {

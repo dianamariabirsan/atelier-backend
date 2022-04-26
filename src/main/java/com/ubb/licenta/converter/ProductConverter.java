@@ -17,7 +17,7 @@ public class ProductConverter extends BaseConverter<Product, ProductDto> {
 
     @Override
     public ProductDto convertModelToDto(Product product) {
-        ProductDto productDto = new ProductDto(product.getType(), product.getPrice());
+        ProductDto productDto = new ProductDto(product.getType(), product.getPrice(), product.getImage());
         productDto.setId(productDto.getId());
         return productDto;
     }

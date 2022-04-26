@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class ProductDto extends BaseDto {
     private String type;
     private int price;
+    private String image;
 }

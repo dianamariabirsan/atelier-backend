@@ -15,4 +15,10 @@ public interface ProductService {
     void delete(Long productId);
 
     Product getProductById(long id);
+
+    List<Product> filterProductByString(String s);
+
+    List<Product> filterProductsByPrice(int price);
+
+    List<Product> filterProductsByPriceSorted(int price);
 }
