@@ -1,6 +1,5 @@
 package com.ubb.licenta.service;
 
-import com.ubb.licenta.model.Client;
 import com.ubb.licenta.model.Product;
 
 import java.util.List;
@@ -16,9 +15,8 @@ public interface ProductService {
 
     Product getProductById(long id);
 
-    List<Product> filterProductByString(String s);
+    List<Product> filterProductsByPriceSorted(int minPrice, int maxPrice);
 
-    List<Product> filterProductsByPrice(int price);
+    List<Product> filterBy(String filter, Double minPrice, Double maxPrice, Boolean sortAscending);
 
-    List<Product> filterProductsByPriceSorted(int price);
 }

@@ -5,10 +5,8 @@ import com.ubb.licenta.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,36 +40,56 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> filterProductByString(String s) {
-        return repository.findAll().stream()
-                .filter((product) -> product.getType().contains(s))
+    public List<Product> filterProductsByPriceSorted(int minPrice, int maxPrice) {
+        List<Product> filteredProducts = repository.findAll().stream()
+                .filter((product) -> minPrice <= product.getPrice() && product.getPrice() <= maxPrice)
+                .sorted(Comparator.comparing(Product::getPrice))
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Product> filterProductsByPrice(int price) {
-        Set<Product> minPrice = repository.findAll().stream().filter(product -> product.getPrice()<price).collect(Collectors.toSet());
-        Set <Product> maxPrice = repository.findAll().stream().filter(product -> product.getPrice()>=price).collect(Collectors.toSet());
-        List<Product> filteredProducts = new ArrayList<>();
-        filteredProducts.addAll(minPrice);
-        filteredProducts.addAll(maxPrice);
         return filteredProducts;
     }
 
     @Override
-    public List<Product> filterProductsByPriceSorted(int price) {
-        List <Product> minPrice = repository.findAll().stream()
-                .filter((product) -> product.getPrice() < price)
-                .sorted(Comparator.comparing(Product::getType))
-                .collect(Collectors.toList());
-        List <Product> maxPrice = repository.findAll().stream()
-                .filter(product -> product.getPrice() >= price)
-                .sorted((Product b1, Product b2) -> b2.getPrice() - b1.getPrice())
+    public List<Product> filterBy(String filter, Double minPrice, Double maxPrice, Boolean sortAscending) {
+        // daca parametri sunt setati la null atunci ei nu au fost prezenti in requestul de la frontend
+        Predicate<Product> filterByAnyString = x -> false;
+
+        if (filter != null) {
+            filterByAnyString = filterByAnyString
+                    .or(x -> x.getType() != null && x.getType().contains(filter))
+                    .or(x -> x.getDescription() != null && x.getDescription().contains(filter));
+        }
+
+        Predicate<Product> filterByPrices = x -> false;
+
+        if (minPrice == null) {
+            minPrice = 0.0;
+        }
+        if (maxPrice == null) {
+            maxPrice = Double.MAX_VALUE;
+        }
+
+        Double finalMinPrice = minPrice;
+        Double finalMaxPrice = maxPrice;
+        filterByPrices = filterByPrices
+                .or(x -> finalMinPrice <= x.getPrice() && x.getPrice() <= finalMaxPrice);
+
+        Predicate<Product> mainPredicate = filterByAnyString.and(filterByPrices);
+
+        List<Product> filteredProducts =  repository.findAll()
+                .stream()
+                .filter(mainPredicate)
                 .collect(Collectors.toList());
 
-        List<Product> filteredProducts = new ArrayList<>();
-        filteredProducts.addAll(minPrice);
-        filteredProducts.addAll(maxPrice);
+        if (sortAscending == null) {
+            sortAscending = true;
+        }
+
+        if (sortAscending) {
+            Collections.sort(filteredProducts);
+        } else {
+            Collections.sort(filteredProducts, Collections.reverseOrder());
+        }
+
         return filteredProducts;
     }
 }

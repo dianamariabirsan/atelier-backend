@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProductDto extends BaseDto {
     private String type;
-    private int price;
+    private String description;
+    private Double price;
     private String image;
 }

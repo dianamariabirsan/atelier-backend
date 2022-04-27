@@ -10,14 +10,16 @@ import org.springframework.stereotype.Component;
 public class ProductConverter extends BaseConverter<Product, ProductDto> {
 
     private static final Logger log = LoggerFactory.getLogger(ProductConverter.class);
+
     @Override
     public Product convertDtoToModel(ProductDto dto) {
-        throw new RuntimeException("Not yet implemented!");
+        Product product = new Product(dto.getId(), dto.getType(), dto.getDescription(), dto.getPrice(), dto.getImage());
+        return product;
     }
 
     @Override
     public ProductDto convertModelToDto(Product product) {
-        ProductDto productDto = new ProductDto(product.getType(), product.getPrice(), product.getImage());
+        ProductDto productDto = new ProductDto(product.getType(), product.getDescription(), product.getPrice(), product.getImage());
         productDto.setId(productDto.getId());
         return productDto;
     }

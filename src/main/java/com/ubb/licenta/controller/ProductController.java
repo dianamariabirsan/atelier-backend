@@ -82,33 +82,22 @@ public class ProductController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/{ProductByString}")
-    public ResponseEntity<ProductDto> filterProductByString(@PathVariable("ProductByString") String productByString) {
-        Product product = (Product) service.filterProductByString(productByString);
-        ProductDto productDto = converter.convertModelToDto(product);
-        if (productDto == null) {
-            log.info("Unable to find any product with the given type name: " + productByString);
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        log.info("Returning product with name type: " + productByString);
-        return new ResponseEntity<>(productDto, HttpStatus.OK);
-    }
-
-    @GetMapping("/{ProductByPrice}")
-    public ResponseEntity<ProductDto> filterProductByPrice(@PathVariable("ProductByPrice") int productByPrice) {
-        Product product = (Product) service.filterProductsByPrice(productByPrice);
-        ProductDto productDto = converter.convertModelToDto(product);
-        if (productDto == null) {
-            log.info("Unable to find any product with the given price: " + productByPrice);
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        log.info("Returning product with the given price: " + productByPrice);
-        return new ResponseEntity<>(productDto, HttpStatus.OK);
+    @GetMapping("/search")
+    public ResponseEntity<?> filterBy(
+            @RequestParam(name = "filter", required = false) String filter,
+            @RequestParam(name = "minPrice", required = false) Double minPrice,
+            @RequestParam(name = "maxPrice", required = false) Double maxPrice,
+            @RequestParam(name = "sortAsc", required = false) Boolean sortAscending
+    ) {
+        List<Product> products = service.filterBy(filter, minPrice, maxPrice, sortAscending);
+        List<ProductDto> productDtos = converter.convertModelsToDtos(products);
+        log.info("Filter: filter = " + filter + ", minPrice = " + minPrice + ", maxPrice = " + maxPrice);
+        return new ResponseEntity<>(productDtos, HttpStatus.OK);
     }
 
     @GetMapping("/{ProductByPriceSorted}")
     public ResponseEntity<ProductDto> filterProductByPriceSorted(@PathVariable("ProductByPriceSorted") int productByPriceSorted) {
-        Product product = (Product) service.filterProductsByPriceSorted(productByPriceSorted);
+        Product product = (Product) service.filterProductsByPriceSorted(0, 100);
         ProductDto productDto = converter.convertModelToDto(product);
         if (productDto == null) {
             log.info("Unable to find any product: " + productByPriceSorted);
@@ -117,5 +106,5 @@ public class ProductController {
         log.info("Returning product: " + productByPriceSorted);
         return new ResponseEntity<>(productDto, HttpStatus.OK);
     }
-    
+
 }
