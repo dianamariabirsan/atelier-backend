@@ -12,4 +12,5 @@ public class ProductDto extends BaseDto {
     private String description;
     private Double price;
     private String image;
+    private int orderQuantity;
 }
