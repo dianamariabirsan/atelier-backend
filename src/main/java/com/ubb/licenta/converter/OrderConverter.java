@@ -12,13 +12,15 @@ public class OrderConverter extends BaseConverter<Order, OrderDto> {
     private static final Logger log = LoggerFactory.getLogger(OrderConverter.class);
     @Override
     public Order convertDtoToModel(OrderDto dto) {
-        throw new RuntimeException("Not yet implemented!");
+        Order order = new Order(dto.getId(), dto.getProducts(),
+                dto.getClient(), dto.getDateOfOrderAsTs(), dto.getStatus());
+        return order;
     }
 
     @Override
     public OrderDto convertModelToDto(Order order) {
         OrderDto orderDto = new OrderDto(order.getProducts(),
-        order.getClient(), order.getStatus());
+        order.getClient(), order.getDateOfOrderAsTs(), order.getStatus());
         orderDto.setId(orderDto.getId());
         return orderDto;
     }

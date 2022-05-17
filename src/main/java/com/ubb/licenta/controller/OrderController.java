@@ -2,7 +2,9 @@ package com.ubb.licenta.controller;
 
 import com.ubb.licenta.converter.BaseConverter;
 import com.ubb.licenta.dto.OrderDto;
+import com.ubb.licenta.dto.ProductDto;
 import com.ubb.licenta.model.Order;
+import com.ubb.licenta.model.Product;
 import com.ubb.licenta.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -80,5 +83,17 @@ public class OrderController {
         service.delete(orderId);
         log.info("Returning order with id: " + orderId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<?> filterBy(
+            @RequestParam(name = "orderStatus", required = false) String orderStatus,
+            @RequestParam(name = "dateOfLastOrder", required = false) Long dateOfLastOrderAsTs,
+            @RequestParam(name = "sortDesc", required = false) Boolean sortDescending
+    ) {
+        List<Order> orders = service.filterBy(orderStatus, dateOfLastOrderAsTs, sortDescending);
+        List<OrderDto> orderDtos = converter.convertModelsToDtos(orders);
+        log.info("Filter: orderStatus = " + orderStatus + ", dateOfLastOrderAsTs = " + dateOfLastOrderAsTs + ", sortDescending = " + sortDescending);
+        return new ResponseEntity<>(orderDtos, HttpStatus.OK);
     }
 }

@@ -1,7 +1,9 @@
 package com.ubb.licenta.service;
 
 import com.ubb.licenta.model.Order;
+import com.ubb.licenta.model.Status;
 
+import java.util.Date;
 import java.util.List;
 
 public interface OrderService {
@@ -14,4 +16,6 @@ public interface OrderService {
     void delete(Long orderId);
 
     Order getOrderById(long id);
+
+    List<Order> filterBy(String orderStatus, Long dateOfLastOrderAsTs, Boolean sortDescending);
 }
