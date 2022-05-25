@@ -22,14 +22,17 @@ public class Order extends BaseEntity<Long> implements Comparable<Order> {
     @JoinColumn
     private Client client;
 
+    private String shippingAddress;
+
     private Long dateOfOrderAsTs;
 
     private Status status;
 
-    public Order(Long aLong, List<Product> products, Client client, Long dateOfOrderAsTs, Status status) {
+    public Order(Long aLong, List<Product> products, Client client, String shippingAddress, Long dateOfOrderAsTs, Status status) {
         super(aLong);
         this.products = products;
         this.client = client;
+        this.shippingAddress = shippingAddress;
         this.dateOfOrderAsTs = dateOfOrderAsTs;
         this.status = status;
     }

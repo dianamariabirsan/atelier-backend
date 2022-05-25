@@ -13,14 +13,14 @@ public class OrderConverter extends BaseConverter<Order, OrderDto> {
     @Override
     public Order convertDtoToModel(OrderDto dto) {
         Order order = new Order(dto.getId(), dto.getProducts(),
-                dto.getClient(), dto.getDateOfOrderAsTs(), dto.getStatus());
+                dto.getClient(), dto.getShippingAddress(), dto.getDateOfOrderAsTs(), dto.getStatus());
         return order;
     }
 
     @Override
     public OrderDto convertModelToDto(Order order) {
         OrderDto orderDto = new OrderDto(order.getProducts(),
-        order.getClient(), order.getDateOfOrderAsTs(), order.getStatus());
+        order.getClient(), order.getShippingAddress(), order.getDateOfOrderAsTs(), order.getStatus());
         orderDto.setId(orderDto.getId());
         return orderDto;
     }

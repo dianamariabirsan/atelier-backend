@@ -16,6 +16,7 @@ import java.util.List;
 public class OrderDto extends BaseDto {
     private List<Product> products;
     private Client client;
+    private String shippingAddress;
     private Long dateOfOrderAsTs;
     private Status status;
 }
