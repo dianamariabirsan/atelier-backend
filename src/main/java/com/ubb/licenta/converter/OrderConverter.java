@@ -21,7 +21,7 @@ public class OrderConverter extends BaseConverter<Order, OrderDto> {
     public OrderDto convertModelToDto(Order order) {
         OrderDto orderDto = new OrderDto(order.getProducts(),
         order.getClient(), order.getShippingAddress(), order.getDateOfOrderAsTs(), order.getStatus());
-        orderDto.setId(orderDto.getId());
+        orderDto.setId(order.getId());
         return orderDto;
     }
 }

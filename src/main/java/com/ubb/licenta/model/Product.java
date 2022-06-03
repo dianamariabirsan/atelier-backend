@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.io.Serializable;
 
 @Entity
 @Table(name="products")
@@ -25,7 +24,6 @@ public class Product extends BaseEntity<Long> implements Comparable<Product> {
         this.price = price;
         this.image = image;
         this.orderQuantity=orderQuantity;
-
     }
 
     public Product() {

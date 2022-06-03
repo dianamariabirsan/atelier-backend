@@ -14,6 +14,7 @@ public class StartApp {
         openHomePage();
     }
 
+//    deschide automat browserul cu swagger
     private static void openHomePage() throws IOException {
         Runtime rt = Runtime.getRuntime();
         rt.exec("rundll32 url.dll,FileProtocolHandler" + SWAGGER_UI);
