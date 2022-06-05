@@ -1,13 +1,11 @@
 package com.ubb.licenta.service;
 
 import com.ubb.licenta.model.Order;
-import com.ubb.licenta.model.Status;
 import com.ubb.licenta.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;

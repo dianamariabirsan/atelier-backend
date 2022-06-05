@@ -1,9 +1,7 @@
 package com.ubb.licenta.service;
 
 import com.ubb.licenta.model.Order;
-import com.ubb.licenta.model.Status;
 
-import java.util.Date;
 import java.util.List;
 
 public interface OrderService {

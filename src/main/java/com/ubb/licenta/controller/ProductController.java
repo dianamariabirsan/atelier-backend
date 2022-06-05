@@ -40,7 +40,7 @@ public class ProductController {
 
     @GetMapping("/products")
     //localhost:8080/product/products
-    public ResponseEntity<List<ProductDto>> getAllProducts() {
+    public ResponseEntity<?> getAllProducts() {
         List<Product> products = service.getProducts();
         List<ProductDto> productsDto = converter.convertModelsToDtos(products);
         if (productsDto == null) {
