@@ -4,7 +4,6 @@ import com.ubb.licenta.converter.BaseConverter;
 import com.ubb.licenta.dto.OrderDto;
 import com.ubb.licenta.dto.ProductDto;
 import com.ubb.licenta.model.Order;
-import com.ubb.licenta.model.Product;
 import com.ubb.licenta.model.ProductOrder;
 import com.ubb.licenta.service.OrderService;
 import com.ubb.licenta.service.UserService;
@@ -98,7 +97,7 @@ public class OrderController {
         return new ResponseEntity<>(orderDto, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{orderId}")
+    @DeleteMapping("/orders/{orderId}")
     public ResponseEntity<?> deleteOrder(@PathVariable("orderId") Long orderId) {
         //localhost:8080/order/1
         orderService.delete(orderId);

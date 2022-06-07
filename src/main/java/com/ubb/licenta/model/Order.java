@@ -18,7 +18,7 @@ public class Order extends BaseEntity<Long> implements Comparable<Order> {
     @JoinColumn
     private List<ProductOrder> productOrders;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn
     private User client;
 
