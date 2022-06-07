@@ -14,13 +14,10 @@ dependencies {
     implementation 'org.projectlombok:lombok:1.18.20'
 
     //jdbctemplate
-//        implementation group: 'org.springframework', name: 'spring-jdbc', version: '5.0.3.RELEASE'
-//        implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.1'
     implementation group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.2.0'
 
     //logging
     implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
-//    testimplementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25'
 
     implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.2.6.Final'
 
@@ -39,8 +36,6 @@ dependencies {
     implementation group: 'org.springframework', name: 'spring-tx', version: '5.3.16'
 
     implementation group: 'org.springframework', name: 'spring-context', version: '5.0.3.RELEASE'
-//    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.6.3'
-//    implementation group: 'org.springframework.security', name: 'spring-security-web', version: '5.5.2'
 
     //jpa
     implementation group: 'org.springframework', name: 'spring-context-support', version: '5.0.3.RELEASE'
@@ -56,6 +51,13 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 }
+
+
+//        implementation group: 'org.springframework', name: 'spring-jdbc', version: '5.0.3.RELEASE'
+//        implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.1'
+//        testimplementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25'
+//    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.6.3'
+//    implementation group: 'org.springframework.security', name: 'spring-security-web', version: '5.5.2'
 
 test {
     useJUnitPlatform()
