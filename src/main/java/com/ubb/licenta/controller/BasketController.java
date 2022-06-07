@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/basket")
@@ -27,6 +29,7 @@ public class BasketController {
         Long clientId = getClientIdFromSession(sessionId);
         Basket clientBasket = service.getByClientId(clientId);
         BasketDto basketDto = converter.convertModelToDto(clientBasket);
+        basketDto.setProducts(Collections.emptyList());
 
         log.info("Get basket for clientId" + clientId + ": " + basketDto);
         return new ResponseEntity<>(basketDto, HttpStatus.OK);

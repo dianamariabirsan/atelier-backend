@@ -1,7 +1,5 @@
 package com.ubb.licenta.dto;
 
-import com.ubb.licenta.model.User;
-import com.ubb.licenta.model.Product;
 import com.ubb.licenta.model.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,8 +11,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderDto extends BaseDto {
-    private List<Product> products;
-    private User client;
+    private List<ProductDto> products;
+    private Long clientId;
     private String shippingAddress;
     private Long dateOfOrderAsTs;
     private Status status;

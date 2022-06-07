@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="products")
+@Table(name = "products")
 @Getter
 @Setter
 @ToString
@@ -15,15 +15,13 @@ public class Product extends BaseEntity<Long> implements Comparable<Product> {
     private String description;
     private Double price;
     private String image;
-    private int orderQuantity;
 
-    public Product(Long aLong, String type, String description, Double price, String image, int orderQuantity) {
+    public Product(Long aLong, String type, String description, Double price, String image) {
         super(aLong);
         this.type = type;
         this.description = description;
         this.price = price;
         this.image = image;
-        this.orderQuantity=orderQuantity;
     }
 
     public Product() {

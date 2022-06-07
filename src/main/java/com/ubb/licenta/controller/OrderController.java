@@ -2,8 +2,12 @@ package com.ubb.licenta.controller;
 
 import com.ubb.licenta.converter.BaseConverter;
 import com.ubb.licenta.dto.OrderDto;
+import com.ubb.licenta.dto.ProductDto;
 import com.ubb.licenta.model.Order;
+import com.ubb.licenta.model.Product;
+import com.ubb.licenta.model.ProductOrder;
 import com.ubb.licenta.service.OrderService;
+import com.ubb.licenta.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,16 +24,24 @@ import java.util.List;
 public class OrderController {
 
     @Autowired
-    private OrderService service;
+    private OrderService orderService;
 
     @Autowired
-    private BaseConverter<Order, OrderDto> converter;
+    private UserService userService;
+
+    @Autowired
+    private BaseConverter<Order, OrderDto> orderConverter;
+
+    @Autowired
+    private BaseConverter<ProductOrder, ProductDto> productOrdersConverter;
 
     @GetMapping("/{orderId}")
     public ResponseEntity<OrderDto> getOrderById(@PathVariable("orderId") Integer orderId) {
         //localhost:8080/order/1
-        Order order = service.getOrderById(orderId);
-        OrderDto orderDto = converter.convertModelToDto(order);
+        Order order = orderService.getOrderById(orderId);
+        OrderDto orderDto = orderConverter.convertModelToDto(order);
+        orderDto.setProducts(productOrdersConverter.convertModelsToDtos(order.getProductOrders()));
+
         if (orderDto == null) {
             log.info("Unable to find any order with id: " + orderId);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -41,8 +53,14 @@ public class OrderController {
     @GetMapping("/orders")
     //localhost:8080/order/orders
     public ResponseEntity<List<OrderDto>> getAllOrders() {
-        List<Order> orders = service.getOrders();
-        List<OrderDto> ordersDto = converter.convertModelsToDtos(orders);
+        List<Order> orders = orderService.getOrders();
+        List<OrderDto> ordersDto = orderConverter.convertModelsToDtos(orders);
+
+        // set on ordersDto the corresponding productsDtos
+        for (int i=0; i<ordersDto.size(); i++) {
+            ordersDto.get(i).setProducts(productOrdersConverter.convertModelsToDtos(orders.get(i).getProductOrders()));
+        }
+
         if (ordersDto == null) {
             log.info("Unable to find any orders");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -52,8 +70,11 @@ public class OrderController {
 
     @PostMapping
     public ResponseEntity<OrderDto> save(@RequestBody OrderDto orderDto) {
-        Order order = converter.convertDtoToModel(orderDto);
-        Order saved = service.save(order);
+        Order order = orderConverter.convertDtoToModel(orderDto);
+        order.setProductOrders(productOrdersConverter.convertDtosToModels(orderDto.getProducts()));
+        order.setClient(userService.getClientById(orderDto.getClientId()));
+
+        Order saved = orderService.save(order);
         if (saved == null) {
             log.info("Unable to save order");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -64,8 +85,11 @@ public class OrderController {
 
     @PutMapping
     public ResponseEntity<OrderDto> update(@RequestBody OrderDto orderDto) {
-        Order order = converter.convertDtoToModel(orderDto);
-        Order saved = service.update(order);
+        Order order = orderConverter.convertDtoToModel(orderDto);
+        order.setProductOrders(productOrdersConverter.convertDtosToModels(orderDto.getProducts()));
+        order.setClient(userService.getClientById(orderDto.getClientId()));
+
+        Order saved = orderService.update(order);
         if (saved == null) {
             log.info("Unable to update order");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -77,7 +101,7 @@ public class OrderController {
     @DeleteMapping("/{orderId}")
     public ResponseEntity<?> deleteOrder(@PathVariable("orderId") Long orderId) {
         //localhost:8080/order/1
-        service.delete(orderId);
+        orderService.delete(orderId);
         log.info("Returning order with id: " + orderId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -88,8 +112,14 @@ public class OrderController {
             @RequestParam(name = "dateOfLastOrder", required = false) Long dateOfLastOrderAsTs,
             @RequestParam(name = "sortDesc", required = false) Boolean sortDescending
     ) {
-        List<Order> orders = service.filterBy(orderStatus, dateOfLastOrderAsTs, sortDescending);
-        List<OrderDto> orderDtos = converter.convertModelsToDtos(orders);
+        List<Order> orders = orderService.filterBy(orderStatus, dateOfLastOrderAsTs, sortDescending);
+        List<OrderDto> orderDtos = orderConverter.convertModelsToDtos(orders);
+
+        // set on ordersDto the corresponding productsDtos
+        for (int i=0; i<orderDtos.size(); i++) {
+            orderDtos.get(i).setProducts(productOrdersConverter.convertModelsToDtos(orders.get(i).getProductOrders()));
+        }
+
         log.info("Filter: orderStatus = " + orderStatus + ", dateOfLastOrderAsTs = " + dateOfLastOrderAsTs + ", sortDescending = " + sortDescending);
         return new ResponseEntity<>(orderDtos, HttpStatus.OK);
     }

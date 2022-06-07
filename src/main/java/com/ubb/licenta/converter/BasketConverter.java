@@ -19,13 +19,17 @@ public class BasketConverter extends BaseConverter<Basket, BasketDto> {
     @Override
     public Basket convertDtoToModel(BasketDto dto) {
         User user = userRepository.findUserById(dto.getClientId());
-        return new Basket(dto.getId(), dto.getProducts(), user);
+        Basket basket = new Basket();
+        basket.setId(dto.getId());
+        basket.setClient(user);
+        return basket;
     }
 
     @Override
     public BasketDto convertModelToDto(Basket basket) {
-        BasketDto basketDto = new BasketDto(basket.getProducts(), basket.getClient().getId());
+        BasketDto basketDto = new BasketDto();
         basketDto.setId(basket.getId());
+        basketDto.setClientId(basket.getClient().getId());
         return basketDto;
     }
 }

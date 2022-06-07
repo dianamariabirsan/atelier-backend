@@ -2,6 +2,7 @@ package com.ubb.licenta.service;
 
 import com.ubb.licenta.model.Order;
 import com.ubb.licenta.repository.OrderRepository;
+import com.ubb.licenta.repository.ProductOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +16,12 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderRepository repository;
 
+    @Autowired
+    private ProductOrderRepository productOrdersRepository;
+
     @Override
     public Order save(Order order) {
+        productOrdersRepository.saveAll(order.getProductOrders());
         return repository.save(order);
     }
 
@@ -63,7 +68,7 @@ public class OrderServiceImpl implements OrderService {
         // TODO: change to and instead of or when predicate for date works
         Predicate<Order> mainPredicate = filterByStatus.or(filterByDate);
 
-        List<Order> filteredOrders =  repository.findAll()
+        List<Order> filteredOrders = repository.findAll()
                 .stream()
                 .filter(mainPredicate)
                 .collect(Collectors.toList());

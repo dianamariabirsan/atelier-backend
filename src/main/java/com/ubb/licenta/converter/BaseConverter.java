@@ -27,4 +27,10 @@ public abstract class BaseConverter<Model extends BaseEntity<Long>, Dto extends 
                 .map(model -> convertModelToDto(model))
                 .collect(Collectors.toList());
     }
+
+    public List<Model> convertDtosToModels(Collection<Dto> dtos) {
+        return dtos.stream()
+                .map(dto -> convertDtoToModel(dto))
+                .collect(Collectors.toList());
+    }
 }

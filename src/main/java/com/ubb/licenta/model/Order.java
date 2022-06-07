@@ -16,7 +16,7 @@ import java.util.List;
 public class Order extends BaseEntity<Long> implements Comparable<Order> {
     @OneToMany(cascade = CascadeType.REMOVE)
     @JoinColumn
-    private List<Product> products;
+    private List<ProductOrder> productOrders;
 
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn
@@ -28,9 +28,9 @@ public class Order extends BaseEntity<Long> implements Comparable<Order> {
 
     private Status status;
 
-    public Order(Long aLong, List<Product> products, User client, String shippingAddress, Long dateOfOrderAsTs, Status status) {
+    public Order(Long aLong, List<ProductOrder> productOrders, User client, String shippingAddress, Long dateOfOrderAsTs, Status status) {
         super(aLong);
-        this.products = products;
+        this.productOrders = productOrders;
         this.client = client;
         this.shippingAddress = shippingAddress;
         this.dateOfOrderAsTs = dateOfOrderAsTs;
