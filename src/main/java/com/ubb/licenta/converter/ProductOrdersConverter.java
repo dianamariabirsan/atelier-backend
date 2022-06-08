@@ -26,7 +26,7 @@ public class ProductOrdersConverter extends BaseConverter<ProductOrder, ProductD
     public ProductDto convertModelToDto(ProductOrder productOrder) {
         Product product = productOrder.getProduct();
         ProductDto productDto = new ProductDto(product.getType(), product.getDescription(),
-                product.getPrice(), product.getImage(), 0);
+                product.getPrice(), product.getImage(), productOrder.getQuantity());
         productDto.setId(product.getId());
         return productDto;
     }
