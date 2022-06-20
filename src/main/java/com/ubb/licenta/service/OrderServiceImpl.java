@@ -1,6 +1,7 @@
 package com.ubb.licenta.service;
 
 import com.ubb.licenta.model.Order;
+import com.ubb.licenta.model.enums.Status;
 import com.ubb.licenta.repository.OrderRepository;
 import com.ubb.licenta.repository.ProductOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,8 +53,9 @@ public class OrderServiceImpl implements OrderService {
         Predicate<Order> filterByStatus = x -> false;
 
         if (orderStatus != null) {
+            Status status = Status.valueOf(orderStatus);
             filterByStatus = filterByStatus
-                    .or(x -> x.getStatus() != null && x.getStatus().toString().contains(orderStatus));
+                    .or(x -> x.getStatus() != null && x.getStatus().equals(status));
         }
 
         Predicate<Order> filterByDate = x -> false;
@@ -72,6 +74,35 @@ public class OrderServiceImpl implements OrderService {
         List<Order> filteredOrders = repository.findAll()
                 .stream()
                 .filter(mainPredicate)
+                .collect(Collectors.toList());
+
+        if (sortDescending == null) {
+            sortDescending = true;
+        }
+
+        if (sortDescending) {
+            Collections.sort(filteredOrders, Collections.reverseOrder());
+        } else {
+            Collections.sort(filteredOrders);
+        }
+
+        return filteredOrders;
+    }
+
+    @Override
+    public List<Order> filterBy(String orderStatus, Boolean sortDescending) {
+        // daca parametri sunt setati la null atunci ei nu au fost prezenti in requestul de la frontend
+        Predicate<Order> filterByStatus = x -> false;
+
+        if (orderStatus != null) {
+            Status status = Status.valueOf(orderStatus);
+            filterByStatus = filterByStatus
+                    .or(x -> x.getStatus() != null && x.getStatus().equals(status));
+        }
+
+        List<Order> filteredOrders = repository.findAll()
+                .stream()
+                .filter(filterByStatus)
                 .collect(Collectors.toList());
 
         if (sortDescending == null) {

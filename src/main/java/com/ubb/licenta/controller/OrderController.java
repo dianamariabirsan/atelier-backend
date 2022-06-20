@@ -111,7 +111,7 @@ public class OrderController {
             @RequestParam(name = "dateOfLastOrder", required = false) Long dateOfLastOrderAsTs,
             @RequestParam(name = "sortDesc", required = false) Boolean sortDescending
     ) {
-        List<Order> orders = orderService.filterBy(orderStatus, dateOfLastOrderAsTs, sortDescending);
+        List<Order> orders = orderService.filterBy(orderStatus, sortDescending);
         List<OrderDto> orderDtos = orderConverter.convertModelsToDtos(orders);
 
         // set on ordersDto the corresponding productsDtos

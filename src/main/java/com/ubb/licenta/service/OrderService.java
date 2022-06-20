@@ -16,4 +16,6 @@ public interface OrderService {
     Order getOrderById(long id);
 
     List<Order> filterBy(String orderStatus, Long dateOfLastOrderAsTs, Boolean sortDescending);
+
+    List<Order> filterBy(String orderStatus, Boolean sortDescending);
 }

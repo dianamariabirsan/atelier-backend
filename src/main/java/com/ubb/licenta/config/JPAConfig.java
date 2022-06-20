@@ -21,7 +21,6 @@ import javax.sql.DataSource;
 @Configuration
 @EnableJpaRepositories({"com.ubb.licenta.repository"})
 @EnableTransactionManagement
-//@EnableCaching
 
 public class JPAConfig {
     @Value("${db.jdbcUrl}")
